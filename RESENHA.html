@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
+
+  <style>
+    /*=============== GOOGLE FONTS ===============*/
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap");
+
+/*=============== VARIABLES CSS ===============*/
+:root {
+  --header-height: 3.5rem;
+
+  /*========== Colors ==========*/
+  /*Color mode HSL(hue, saturation, lightness)*/
+  --black-color: hsl(220, 24%, 12%);
+  --black-color-light: hsl(220, 24%, 15%);
+  --black-color-lighten: hsl(220, 20%, 18%);
+  --white-color: #fff;
+  --body-color: hsl(220, 100%, 97%);
+
+  /*========== Font and typography ==========*/
+  /*.5rem = 8px | 1rem = 16px ...*/
+  --body-font: "Montserrat", sans-serif;
+  --normal-font-size: .938rem;
+
+  /*========== Font weight ==========*/
+  --font-regular: 400;
+  --font-semi-bold: 600;
+
+  /*========== z index ==========*/
+  --z-tooltip: 10;
+  --z-fixed: 100;
+}
+
+/*========== Responsive typography ==========*/
+@media screen and (min-width: 1024px) {
+  :root {
+    --normal-font-size: 1rem;
+  }
+}
+
+/*=============== BASE ===============*/
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+  background-color: var(--body-color);
+  overflow-x: scroll;
+}
+
+ul {
+  list-style: none;
+  /* Color highlighting when pressed on mobile devices */
+  /*-webkit-tap-highlight-color: transparent;*/
+}
+
+a {
+  text-decoration: none;
+}
+
+/*=============== REUSABLE CSS CLASSES ===============*/
+.container {
+  max-width: 1120px;
+  margin-inline: 1.5rem;
+}
+
+/*=============== HEADER ===============*/
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--black-color);
+  box-shadow: 0 2px 16px hsla(220, 32%, 8%, .3);
+  z-index: var(--z-fixed);
+}
+
+/*=============== NAV ===============*/
+.nav {
+  height: var(--header-height);
+}
+
+.nav__logo, 
+.nav__burger, 
+.nav__close {
+  color: var(--white-color);
+}
+
+.nav__data {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav__logo {
+  display: inline-flex;
+  align-items: center;
+  column-gap: .25rem;
+  font-weight: var(--font-semi-bold);
+  /* Color highlighting when pressed on mobile devices */
+  /*-webkit-tap-highlight-color: transparent;*/
+}
+
+.nav__logo i {
+  font-weight: initial;
+  font-size: 1.25rem;
+}
+
+.nav__toggle {
+  position: relative;
+  width: 32px;
+  height: 32px;
+}
+
+.nav__burger, 
+.nav__close {
+  position: absolute;
+  width: max-content;
+  height: max-content;
+  inset: 0;
+  margin: auto;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: opacity .1s, transform .4s;
+}
+
+.nav__close {
+  opacity: 0;
+}
+
+/* Navigation for mobile devices */
+@media screen and (max-width: 1118px) {
+  .nav__menu {
+    position: absolute;
+    left: 0;
+    top: 2.5rem;
+    width: 100%;
+    height: calc(100vh - 3.5rem);
+    overflow: auto;
+    pointer-events: none;
+    opacity: 0;
+    transition: top .4s, opacity .3s;
+  }
+  .nav__menu::-webkit-scrollbar {
+    width: 0;
+  }
+  .nav__list {
+    background-color: var(--black-color);
+    padding-top: 1rem;
+  }
+}
+
+.nav__link {
+  color: var(--white-color);
+  background-color: var(--black-color);
+  font-weight: var(--font-semi-bold);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color .3s;
+}
+
+.nav__link:hover {
+  background-color: var(--black-color-light);
+}
+
+/* Show menu */
+.show-menu {
+  opacity: 1;
+  top: 3.5rem;
+  pointer-events: initial;
+}
+
+/* Show icon */
+.show-icon .nav__burger {
+  opacity: 0;
+  transform: rotate(90deg);
+}
+.show-icon .nav__close {
+  opacity: 1;
+  transform: rotate(90deg);
+}
+
+
+/*=============== BREAKPOINTS ===============*/
+/* For small devices */
+@media screen and (max-width: 340px) {
+  .container {
+    margin-inline: 1rem;
+  }
+
+  .nav__link {
+    padding-inline: 1rem;
+  }
+}
+
+/* For large devices */
+@media screen and (min-width: 1118px) {
+  .container {
+    margin-inline: auto;
+  }
+
+  .nav {
+    height: calc(var(--header-height) + 2rem);
+    display: flex;
+    justify-content: space-between;
+  }
+  .nav__toggle {
+    display: none;
+  }
+  .nav__list {
+    height: 100%;
+    display: flex;
+    column-gap: 3rem;
+  }
+  .nav__link {
+    height: 100%;
+    padding: 0;
+    justify-content: initial;
+    column-gap: .25rem;
+  }
+  .nav__link:hover {
+    background-color: transparent;
+  }
+
+}
+    body {
+      background-color: #181717; /* Preto */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .game-container {
+      margin-top: 130px;
+      display: flex;
+      flex-direction: column; /* Alterado para exibir em coluna */
+      align-items: center; /* Centralizar elementos */
+      gap: 20px; /* Adicionado espaçamento entre os elementos */
+    }
+
+    .doors-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .door {
+      width: 100px;
+      height: 100px;
+      border: 2px solid #ffd700; /* Gold */
+      overflow: hidden;
+      position: relative;
+      border-radius: 10px;
+      background-color: #ffd700; /* Gold */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .boxes {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .box {
+      box-sizing: border-box;
+      flex: 1 0 calc(33.33% - 4px);
+      height: calc(33.33% - 4px);
+      border: 2px solid #ffd700; /* Gold */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 30px; /* Increased font size */
+      border-radius: 10px; /* Rounder corners */
+      margin: 2px;
+    }
+
+    .spin-animation .boxes {
+      animation: spin 1.5s ease-in-out; /* Faster animation */
+    }
+
+    @keyframes spin {
+      0% {
+        transform: translateY(0);
+      }
+      100% {
+        transform: translateY(-300%);
+      }
+    }
+
+    .fichas {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #ffd700; /* Gold */
+      margin-top: 20px;
+    }
+
+    #fichasCount {
+      font-size: 24px;
+      margin-top: 10px;
+      padding: 10px;
+      border: 2px solid #ffd700; /* Gold */
+      border-radius: 5px;
+    }
+
+    .victory-message {
+      color: #ffd700; /* Gold */
+      font-size: 30px;
+      margin-top: 20px;
+      display: none;
+    }
+
+    .controls {
+      display: flex;
+      gap: 20px; /* Adicionado espaçamento entre os controles */
+      margin-top: 20px;
+    }
+
+    #spinner, #reseter, #zerarFichas, #increase, #decrease {
+      cursor: pointer;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      color: #fff; /* Branco */
+      background: none;
+      border: none;
+      font-family: 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji', 'Apple Color Emoji', 'Segoe UI', 'Helvetica Neue', 'Arial', 'Noto Sans', 'sans-serif';
+      outline: none;
+    }
+
+    #spinner, #reseter, #zerarFichas {
+      background-color: #ffd700; /* Gold */
+      color: #000; /* Black */
+    }
+
+    #spinner:hover, #reseter:hover, #zerarFichas:hover {
+      background-color: #000; /* Black */
+      color: #ffd700; /* Gold */
+    }
+
+    #increase, #decrease {
+      background-color: #000; /* Black */
+      color: #ffd700; /* Gold */
+    }
+
+    #increase:hover, #decrease:hover {
+      background-color: #ffd700; /* Gold */
+      color: #000; /* Black */
+    }
+  </style>
+  <title>Slot Machine</title>
+</head>
+<body>
+  <header class="header">
+    <nav class="nav container">
+       <div class="nav__data">
+          <a href="index.html" class="nav__logo">
+             <i class="ri-planet-line"></i> Samantinha-BDAY
+          </a>
+          
+          <div class="nav__toggle" id="nav-toggle">
+             <i class="ri-menu-line nav__burger"></i>
+             <i class="ri-close-line nav__close"></i>
+          </div>
+       </div>
+
+       <div class="nav__menu" id="nav-menu">
+          <ul class="nav__list">
+             <li><a href="index.html" class="nav__link">Pagina Inicial</a></li>
+             <li><a href="galery.html" class="nav__link">Nossa Galeria</a></li>
+             <li><a href="about-the-beautiful-samantinha.html" class="nav__link">Sobre você</a></li>
+             <li><a href="RESENHA.html" class="nav__link">Roleta pra jogar no seu niver</a></li>           
+          </ul>
+       </div>
+    </nav>
+ </header>
+  <div class="game-container">
+    <div class="doors-container">
+      <div class="door">
+        <div class="boxes"></div>
+      </div>
+      <div class="door">
+        <div class="boxes"></div>
+      </div>
+      <div class="door">
+        <div class="boxes"></div>
+      </div>
+      <div class="door">
+        <div class="boxes"></div>
+      </div>
+      <div class="door">
+        <div class="boxes"></div>
+      </div>
+      <div class="door">
+        <div class="boxes"></div>
+      </div>
+      <div class="door">
+        <div class="boxes"></div>
+      </div>
+      <div class="door">
+        <div class="boxes"></div>
+      </div>
+      <div class="door">
+        <div class="boxes"></div>
+      </div>
+    </div>
+    <div class="fichas">
+      <div>Fichas</div>
+      <div id="fichasCount">10</div>
+    </div>
+    <div class="controls">
+      <button id="increase">▲</button>
+      <button id="decrease">▼</button>
+      <button id="spinner">Spin</button>
+      <button id="reseter">Reset</button>
+      <button id="zerarFichas">Zerar Fichas</button>
+    </div>
+  </div>
+  <div class="victory-message" id="victoryMessage">Você venceu!</div>
+
+  <script>
+    (function () {
+      let fichasCount = 10; // Inicializando com 10 fichas
+      const items = ['🌹', '🍺', '🍁', '🛏️', '❌'];
+      const doors = document.querySelectorAll('.door');
+      const fichasCountElement = document.getElementById('fichasCount');
+      const victoryMessage = document.getElementById('victoryMessage');
+
+      document.querySelector('#spinner').addEventListener('click', function() {
+        if (fichasCount > 0) {
+          fichasCount-=1;
+          reset();
+          spin();
+        } else {
+          alert('Você está sem fichas!'); // Adicione sua lógica de recarregar fichas aqui, se desejar
+        }
+      });
+
+      document.querySelector('#reseter').addEventListener('click', reset);
+
+      document.querySelector('#zerarFichas').addEventListener('click', function() {
+        fichasCount = 0;
+        updateFichasCount();
+      });
+
+      document.querySelector('#increase').addEventListener('click', function() {
+        if (fichasCount < 99) {
+          fichasCount++;
+          updateFichasCount();
+        } else {
+          alert('Você atingiu o máximo de fichas!');
+        }
+      });
+
+      document.querySelector('#decrease').addEventListener('click', function() {
+        if (fichasCount > 0) {
+          fichasCount--;
+          updateFichasCount();
+        } else {
+          alert('Você não pode ter menos que zero fichas!');
+        }
+      });
+
+      function reset() {
+        victoryMessage.style.display = 'none';
+        init(true);
+      }
+
+      function updateFichasCount() {
+        fichasCountElement.textContent = fichasCount;
+      }
+
+      function init(firstInit = true, groups = 1, duration = 1) {
+        const doorsContainer = document.querySelector('.doors-container');
+        doorsContainer.classList.remove('spin-animation');
+
+        for (const door of doors) {
+          if (firstInit) {
+            door.dataset.spinned = '0';
+          } else if (door.dataset.spinned === '1') {
+            return;
+          }
+
+          const boxes = door.querySelector('.boxes');
+          const boxesClone = boxes.cloneNode(false);
+          const pool = ['❓'];
+
+          if (!firstInit) {
+            const arr = [];
+            for (let n = 0; n < (groups > 0 ? groups : 1); n++) {
+              arr.push(...items);
+            }
+            pool.push(...shuffle(arr));
+
+            boxesClone.addEventListener(
+              'animationstart',
+              function () {
+                door.dataset.spinned = '1';
+                this.querySelectorAll('.box').forEach((box) => {
+                  box.style.filter = 'blur(1px)';
+                });
+              },
+              { once: true }
+            );
+
+            boxesClone.addEventListener(
+              'animationend',
+              function () {
+                this.querySelectorAll('.box').forEach((box, index) => {
+                  box.style.filter = 'blur(0)';
+                  if (index > 0) this.removeChild(box);
+                });
+                checkForOutcome();
+              },
+              { once: true }
+            );
+          }
+
+          for (let i = pool.length - 1; i >= 0; i--) {
+            const box = document.createElement('div');
+            box.classList.add('box');
+            box.style.width = door.clientWidth / 3 + 'px'; // 3 columns
+            box.style.height = door.clientHeight / 3 + 'px'; // 3 rows
+            box.textContent = pool[i];
+            boxesClone.appendChild(box);
+          }
+          boxesClone.style.animationDuration = `${duration > 0 ? duration : 1}s`;
+          door.replaceChild(boxesClone, boxes);
+        }
+
+        setTimeout(() => {
+          doorsContainer.classList.add('spin-animation');
+        }, 0);
+      }
+
+      async function spin() {
+        init(false, 3, 1); // 3 items in each group, duration of 1 second
+      }
+
+      function shuffle([...arr]) {
+        let m = arr.length;
+        while (m) {
+          const i = Math.floor(Math.random() * m--);
+          [arr[m], arr[i]] = [arr[i], arr[m]];
+        }
+        return arr;
+      }
+
+      function checkForOutcome() {
+        const symbols = [];
+        const doorsContainer = document.querySelector('.doors-container');
+        doorsContainer.classList.remove('spin-animation');
+
+        for (const door of doors) {
+          const symbol = door.querySelector('.box').textContent;
+          symbols.push(symbol);
+        }
+
+        // Define suas condições de vitória e derrota aqui
+
+
+        // Define suas condições de vitória aqui
+        const victoryConditions = [
+          // Linhas
+          [0, 1, 2],
+          [3, 4, 5],
+          [6, 7, 8],
+          // Colunas
+          [0, 3, 6],
+          [1, 4, 7],
+          [2, 5, 8],
+        ];
+
+        for (const condition of victoryConditions) {
+          const [a, b, c] = condition;
+          if (symbols[a] === symbols[b] && symbols[b] === symbols[c]) {
+            displayVictoryMessage(symbols[a]);
+            break;
+          }
+        }
+      }
+
+      function displayVictoryMessage(symbol) {
+        const message = document.getElementById('victoryMessage');
+        switch (symbol) {
+          case '🍁':
+            message.textContent = 'Você ganhou o direito de dar uns tragos!';
+            break;
+          case '🛏️':
+            message.textContent = 'Você ganhou o direito de usar o quarto por 10 minutos!';
+            break;
+          case '🌹':
+            message.textContent = 'Você ganhou o direito a um selinho!';
+            break;
+          case '🍺':
+            message.textContent = 'Você pode escolher alguém para dar 3 shots!';
+            break;
+          case '❌':
+            message.textContent = 'Você PERDEU, TOME UM SHOT';
+            break;
+            default:
+            message.textContent = 'Você venceu!';
+            break;
+            
+        }
+
+        message.style.display = 'block';
+      }
+
+      init();
+    })();
+    const showMenu = (toggleId, navId) =>{
+      const toggle = document.getElementById(toggleId),
+            nav = document.getElementById(navId)
+   
+      toggle.addEventListener('click', () =>{
+          // Add show-menu class to nav menu
+          nav.classList.toggle('show-menu')
+   
+          // Add show-icon to show and hide the menu icon
+          toggle.classList.toggle('show-icon')
+      })
+   }
+  </script>
+</body>
+</html>
